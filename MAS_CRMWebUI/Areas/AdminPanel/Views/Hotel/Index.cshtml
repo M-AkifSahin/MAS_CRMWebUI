@@ -1,0 +1,310 @@
+﻿@using MAS_CRMWebUI.Areas.AdminPanel.Models.Hotel
+@model List<HotelDTO>
+
+@{
+    ViewData["Title"] = "Hotels";
+    Layout = "~/Areas/AdminPanel/Views/Shared/_Layout.cshtml";
+}
+@Html.AntiForgeryToken()
+
+<div class="card">
+    <div class="card-header">
+        <div class="card-tools">
+            <a href="#" class="btn btn-primary btn-block mb-1" data-toggle="modal" data-target="#modal-AddHotel">Otel Ekle</a>
+        </div>
+    </div>
+</div>
+
+<div class="card-body">
+    <table id="tblOteller" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Ad</th>
+                <th>Address</th>
+                <th>PhoneNumber</th>
+                <th>Email</th>
+                <th>Website</th>
+                <th>Description</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @{
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Address</td>
+                        <td>@item.PhoneNumber</td>
+                        <td>@item.Email</td>
+                        <td>@item.Website</td>
+                        <td>@item.Description</td>
+                        <td><button type="button" class="btn btn-block btn-warning btnGetHotelDetail" data-toggle="modal" data-target="#modal-UpdateHotel" data-guid="@item.Guid">Görüntüle</button> </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="modal-AddHotel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Hotel</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group row">
+                    <label for="txtAd_Add" class="col-sm-3 col-form-label">Ad</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="txtAd_Add">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="txtAddress_Add" class="col-sm-3 col-form-label">Address</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="txtAddress_Add">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="txtPhoneNumber_Add" class="col-sm-3 col-form-label">PhoneNumber</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="txtPhoneNumber_Add">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="txtEmail_Add" class="col-sm-3 col-form-label">Email</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="txtEmail_Add">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="txtWebsite_Add" class="col-sm-3 col-form-label">Website</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="txtWebsite_Add">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="txtDescription_Add" class="col-sm-3 col-form-label">Description</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="txtDescription_Add">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-primary" id="btnAddHotel">Kaydet</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="modal-UpdateHotel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="HHotelName"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group row">
+                    <label for="txtAd_Update" class="col-sm-3 col-form-label">Ad</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="txtAd_Update">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="txtAddress_Update" class="col-sm-3 col-form-label">Address</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="txtAddress_Update">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="txtPhoneNumber_Update" class="col-sm-3 col-form-label">PhoneNumber</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="txtPhoneNumber_Update">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="txtEmail_Update" class="col-sm-3 col-form-label">Email</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="txtEmail_Update">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="txtWebsite_Update" class="col-sm-3 col-form-label">Website</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="txtWebsite_Update">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="txtDescription_Update" class="col-sm-3 col-form-label">Description</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="txtDescription_Update">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-primary" id="btnUpdateHotel">Kaydet</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<script>
+    $(function () {
+        $("#tblOteller").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#tblOteller_wrapper .col-md-6:eq(0)');
+
+        $('.btnGetHotelDetail').click(function () {
+            var guid = $(this).attr('data-guid')
+
+            $.ajax({
+                url: "/Admin/Otel/" + guid,
+                type: "get",
+                success: function (response) {
+                    $('#HHotelName').html('').append(response.Name)
+
+                    $('#txtAd_Update').val(response.Name)
+
+                    $('#txtAddress_Update').val(response.Address)
+
+                    $('#txtPhoneNumber_Update').val(response.PhoneNumber)
+
+                    $('#txtEmail_Update').val(response.Email)
+
+                    $('#txtWebsite_Update').val(response.Website)
+
+                    $('#txtDescription_Update').val(response.Description)
+
+
+
+
+                    $('#btnUpdateHotel').attr('data-guid', guid)
+
+                },
+                Error: function (err) {
+                    Swal.fire({
+                        title: "Hata Oluştu",
+                        text: err,
+                        icon: "error"
+                    });
+                }
+            });
+        })
+
+        $('#btnUpdateHotel').click(function () {
+            otelGuid = $(this).attr('data-guid');
+            var hotelUpdateRequestDTO = {
+                "Name": $('#txtAd_Update').val(),
+                "Address": $('#txtAddress_Update').val(),
+                "PhoneNumber": $('#txtPhoneNumber_Update').val(),
+                "Email": $('#txtEmail_Update').val(),
+                "Website": $('#txtWebsite_Update').val(),
+                "Description": $('#txtDescription_Update').val(),
+                "Guid": otelGuid
+            };
+
+            $.ajax({
+                url: "/Admin/UpdateHotel",
+                type: "post",
+                data: { hotelUpdateRequestDTO },
+                success: function (response) {
+                    if (response.success) {
+
+
+                        Swal.fire({
+                            title: "İşlem Başarılı",
+                            html: "Otel Bilgileri  Başarıyla Güncellenmişir.Sayfa Tekrar Yükleniyor.",
+                            icon: "success",
+                            timer: 3000
+                        }).then((result) => {
+                            window.location.reload();
+                        });
+                    }
+                    else {
+                        Swal.fire({
+                            title: "HATA OLUŞTU",
+                            text: err,
+                            icon: "error"
+                        });
+                    }
+                },
+                Error: function (err) {
+                    Swal.fire({
+                        title: "HATA OLUŞTU",
+                        text: err,
+                        icon: "error"
+                    });
+                }
+
+            });
+
+        });
+
+        $('#btnAddHotel').click(function () {
+            var addHotelRequestDTO = {
+                "Name": $('#txtAd_Add').val(),
+                "Address": $('#txtAddress_Add').val(),
+                "PhoneNumber": $('#txtPhoneNumber_Add').val(),
+                "Email": $('#txtEmail_Add').val(),
+                "Website": $('#txtWebsite_Add').val(),
+                "Description": $('#txtDescription_Add').val()
+            };
+
+            $.ajax({
+                url: "/Admin/OtelEkle",
+                type: "post",
+                data: { addHotelRequestDTO },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("XSRF-Token", $('input:hidden[name="__RequestVerificationToken"]').val())
+                },
+                success: function (response) {
+                    if (response.success) {
+
+
+                        Swal.fire({
+                            title: "İşlem Başarılı",
+                            html: "Otel Başarıyla Eklenmiştir.Sayfa Tekrar Yükleniyor...",
+                            icon: "success",
+                            timer: 3000
+                        }).then((result) => {
+                            window.location.reload();
+                        });
+                    }
+                    else {
+                        Swal.fire({
+                            title: "HATA OLUŞTU",
+                            text: response.hataAciklama,
+                            icon: "error"
+                        });
+                    }
+                },
+                Error: function (err) {
+                    Swal.fire({
+                        title: "HATA OLUŞTU",
+                        text: err,
+                        icon: "error"
+                    });
+                }
+
+            });
+
+        });
+    });
+</script>

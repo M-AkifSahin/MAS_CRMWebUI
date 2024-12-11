@@ -1,0 +1,28 @@
+﻿@using MAS_CRMWebUI.Areas.AdminPanel.Models.Hotel
+@model HotelDropDownViewModel
+
+
+<div class="form-group">
+    
+    <select class="form-control select2" id="@Model.ddlHotelID" style="width: 100%">
+      
+        @{
+            foreach (var item in Model.HotelList)
+            {
+
+                if (Model.HotelGUID is not null && Model.HotelGUID==item.HotelGUID)
+                {
+                    <option value="@item.HotelGUID" selected>@item.Name</option>
+                }
+                else
+                {
+                    <option value="@item.HotelGUID">@item.Name</option>
+                }
+            }
+
+        }
+
+
+
+    </select>
+</div>

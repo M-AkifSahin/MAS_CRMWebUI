@@ -1,0 +1,327 @@
+﻿@using MAS_CRMWebUI.Areas.AdminPanel.Models.Room
+@model List<RoomDTO>
+@{
+    ViewData["Title"] = "Rooms";
+    Layout = "~/Areas/AdminPanel/Views/Shared/_Layout.cshtml";
+}
+@Html.AntiForgeryToken()
+
+<div class="card">
+    <div class="card-header">
+        <div class="card-tools">
+            <a href="#" class="btn btn-primary btn-block mb-1" data-toggle="modal" data-target="#modal-AddRoom">Oda Ekle</a>
+        </div>
+    </div>
+</div>
+
+<div class="card-body">
+    <table id="tblOdalar" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>HotelId</th>
+                <th>RoomNumber</th>
+                <th>HotelName</th>
+                <th>Type</th>
+                <th>PricePerNight</th>
+                <th>Availability</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @{
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.HotelId</td>
+                        <td>@item.RoomNumber</td>
+                        <td>@item.HotelName</td>
+                        <td>@item.Type</td>
+                        <td>@item.PricePerNight $</td>
+                        <td>@item.Availability</td>
+                        <td><button type="button" class="btn btn-block btn-warning btnGetRoomDetail" data-toggle="modal" data-target="#modal-UpdateRoom" data-guid="@item.Guid" data-hotelguid="@item.HotelGUID">Görüntüle</button> </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="modal-AddRoom">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Room</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                @* <div class="form-group row">
+                <label for="txtHotelId_Add" class="col-sm-3 col-form-label">HotelId</label>
+                <div class="col-sm-9">
+                <input type="text" class="form-control" id="txtHotelId_Add">
+                </div>
+                </div> *@
+                <div class="form-group row">
+                    <label for="txtRoomNumber_Add" class="col-sm-3 col-form-label">RoomNumber</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="txtRoomNumber_Add">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="txtType_Add" class="col-sm-3 col-form-label">Type</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="txtType_Add">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="txtPricePerNight_Add" class="col-sm-3 col-form-label">PricePerNight</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="txtPricePerNight_Add">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="txtAvailability_Add" class="col-sm-3 col-form-label">Availability</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="txtAvailability_Add">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="txtHotelName_Add" class="col-sm-3 col-form-label">HotelName</label>
+                    <div class="col-sm-9" id="txtHotelName_Add">
+                        @await Component.InvokeAsync("HotelDropDown", new { roomHotelGuid = Guid.Empty, ddlID = "ddlRoom_Add" })
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-primary" id="btnAddRoom">Kaydet</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="modal-UpdateRoom">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="HRoomName"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="txtHotelId_Update" class="col-sm-3 col-form-label">HotelId</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" disabled="disabled" id="txtHotelId_Update">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="txtRoomNumber_Update" class="col-sm-3 col-form-label">RoomNumber</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="txtRoomNumber_Update">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="txtType_Update" class="col-sm-3 col-form-label">Type</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="txtType_Update">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="txtPricePerNight_Update" class="col-sm-3 col-form-label">PricePerNight</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="txtPricePerNight_Update">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="txtAvailability_Update" class="col-sm-3 col-form-label">Availability</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="txtAvailability_Update">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="txtHotelName_Update" class="col-sm-3 col-form-label">HotelName</label>
+                    <div class="col-sm-9" id="txtHotelName_Update">
+                        @* @await Component.InvokeAsync("HotelDropDown", new { roomHotelGuid = Guid.Empty, ddlID = "ddlRoomHotel_Update" }) *@ @* // Sıkıntı Var // *@
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-primary"  id="btnUpdateRoom">Kaydet</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+
+<script>
+    $(function () {
+        $("#tblOdalar").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#tblOdalar_wrapper .col-md-6:eq(0)');
+
+        $('#btnAddRoom').click(function () {
+           
+            var addRoomRequestDTO = {
+                "HotelId": $('#txtHotelId_Add').val(),
+                "RoomNumber": $('#txtRoomNumber_Add').val(),
+                "Type": $('#txtType_Add').val(),
+                "PricePerNight": $('#txtPricePerNight_Add').val(),
+                "Availability": $('#txtAvailability_Add').val(),
+                "HotelGUID": $('#ddlRoom_Add').val()
+            };
+
+            $.ajax({
+                url: "/Admin/OdaEkle",
+                type: "post",
+                data: { addRoomRequestDTO },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("XSRF-Token", $('input:hidden[name="__RequestVerificationToken"]').val())
+                },
+                success: function (response) {
+                    if (response.success) {
+
+
+                        Swal.fire({
+                            title: "İşlem Başarılı",
+                            html: "Oda Başarıyla Eklenmiştir.Sayfa Tekrar Yükleniyor...",
+                            icon: "success",
+                            timer: 3000
+                        }).then((result) => {
+                            window.location.reload();
+                        });
+                    }
+                    else {
+                        Swal.fire({
+                            title: "HATA OLUŞTU",
+                            text: response.hataAciklama,
+                            icon: "error"
+                        });
+                    }
+                },
+                Error: function (err) {
+                    Swal.fire({
+                        title: "HATA OLUŞTU",
+                        text: err,
+                        icon: "error"
+                    });
+                }
+
+            });
+
+        });
+
+        $('.btnGetRoomDetail').click(function () {
+            var guid = $(this).attr('data-guid')
+            var RoomHotelGUID = $(this).attr('data-hotelguid')
+            var ddlID = "ddlRoom_Update"
+
+            $.ajax({
+                url: "/Admin/Oda/" + guid,
+                type: "get",
+                success: function (response) {
+                    $('#HRoomName').html('').append(response.HotelName)
+
+                    $('#txtHotelId_Update').val(response.HotelId)
+
+                    $('#txtRoomNumber_Update').val(response.RoomNumber)
+
+                    $('#txtType_Update').val(response.Type)
+
+                    $('#txtPricePerNight_Update').val(response.PricePerNight)
+
+                    $('#txtAvailability_Update').val(response.Availability)
+
+                    $('#txtHotelName_Update').val(response.HotelName)
+
+
+                    $.ajax({
+                        url: "/Admin/InvokeHotelDropDown",
+                        type: "get",
+                        data: { RoomHotelGUID,ddlID },
+                        success: function (result) {
+                            $('#txtHotelName_Update').html('').append(result);
+                        }
+
+                    });
+
+                    $('#btnUpdateRoom').attr('data-guid', guid)
+
+                },
+                Error: function (err) {
+                    Swal.fire({
+                        title: "Hata Oluştu",
+                        text: err,
+                        icon: "error"
+                    });
+                }
+            });
+        })
+
+        $('#btnUpdateRoom').click(function () {
+            roomGuid = $(this).attr('data-guid');
+            var roomUpdateRequestDTO = {
+                "HotelId": $('#txtHotelId_Update').val(),
+                "RoomNumber": $('#txtRoomNumber_Update').val(),
+                "Type": $('#txtType_Update').val(),
+                "PricePerNight": $('#txtPricePerNight_Update').val(),
+                "Availability": $('#txtAvailability_Update').val(),
+                "HotelName": $('#txtHotelName_Update').val(),
+                "HotelGUID": $('#ddlRoom_Update').val(),
+                "Guid": roomGuid
+            };
+
+            $.ajax({
+                url: "/Admin/UpdateRoom",
+                type: "post",
+                data: { roomUpdateRequestDTO },
+                success: function (response) {
+                    if (response.success) {
+
+
+                        Swal.fire({
+                            title: "İşlem Başarılı",
+                            html: "Oda Bilgileri  Başarıyla Güncellenmişir.Sayfa Tekrar Yükleniyor.",
+                            icon: "success",
+                            timer: 3000
+                        }).then((result) => {
+                            window.location.reload();
+                        });
+                    }
+                    else {
+                        Swal.fire({
+                            title: "HATA OLUŞTU",
+                            text: err,
+                            icon: "error"
+                        });
+                    }
+                },
+                Error: function (err) {
+                    Swal.fire({
+                        title: "HATA OLUŞTU",
+                        text: err,
+                        icon: "error"
+                    });
+                }
+
+            });
+
+        });
+
+    });
+
+</script>
+

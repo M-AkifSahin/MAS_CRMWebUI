@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35122.118
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MAS_CRMWebUI", "MAS_CRMWebUI.csproj", "{B9D19F0C-6993-4CD9-9133-B354AC726DCD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MAS_CRM.Helper", "..\MAS_CRM.Helper\MAS_CRM.Helper.csproj", "{FFE592E1-4390-49D7-9162-C61FA1460779}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B9D19F0C-6993-4CD9-9133-B354AC726DCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9D19F0C-6993-4CD9-9133-B354AC726DCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9D19F0C-6993-4CD9-9133-B354AC726DCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9D19F0C-6993-4CD9-9133-B354AC726DCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFE592E1-4390-49D7-9162-C61FA1460779}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFE592E1-4390-49D7-9162-C61FA1460779}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFE592E1-4390-49D7-9162-C61FA1460779}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFE592E1-4390-49D7-9162-C61FA1460779}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D214D19F-0017-4D52-A7CB-86A055FA7F88}
+	EndGlobalSection
+EndGlobal

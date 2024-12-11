@@ -1,0 +1,328 @@
+﻿@using MAS_CRMWebUI.Areas.AdminPanel.Models.Customer
+@model List<CustomerDTO>
+@{
+    ViewData["Title"] = "Customers";
+    Layout = "~/Areas/AdminPanel/Views/Shared/_Layout.cshtml";
+}
+@Html.AntiForgeryToken()
+
+<div class="card">
+    <div class="card-header">
+        <div class="card-tools">
+            <a href="#" class="btn btn-primary btn-block mb-1" data-toggle="modal" data-target="#modal-AddCustomer">Müşteri Ekle</a>
+        </div>
+    </div>
+</div>
+
+<div class="card-body">
+    <table id="example1" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Ad</th>
+                <th>Soyad</th>
+                <th>Telefon</th>
+                <th>E-Posta</th>
+                <th>Kullanıcı Adı</th>
+                <th>Şifre</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @{
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.FirstName</td>
+                        <td>@item.LastName</td>
+                        <td>@item.PhoneNumber</td>
+                        <td>@item.Email</td>
+                        <td>@item.UserName</td>
+                        <td>@item.Password</td>
+                        <td><button type="button" class="btn btn-block btn-warning btnGetCustomerDetail" data-toggle="modal" data-target="#modal-UpdateCustomer" data-guid="@item.Guid">Görüntüle</button> </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="modal-UpdateCustomer">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="HCustomerFullName"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+
+                <div class="form-group row">
+                    <label for="txtAd_Update" class="col-sm-2 col-form-label">Ad</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="txtAd_Update">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="txtSoyad_Update" class="col-sm-2 col-form-label">Soyad</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="txtSoyad_Update">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="txtKullaniciAdi_Update" class="col-sm-2 col-form-label">Kullanıcı Adı</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" disabled="disabled" id="txtKullaniciAdi_Update"> @* disabled="disabled" işlemi güncellemeyi engeller değiştirilemez!!! *@
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="txtSifre_Update" class="col-sm-2 col-form-label">Şifre</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="txtSifre_Update">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="txtTelefon_Update" class="col-sm-2 col-form-label">Telefon</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="txtTelefon_Update">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="txtEPosta_Update" class="col-sm-2 col-form-label">E-Posta</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="txtEPosta_Update">
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-primary" id="btnUpdateCustomer">Kaydet</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="modal-AddCustomer">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="HCustomerFullName"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group row">
+                    <label for="txtAd_Add" class="col-sm-2 col-form-label">Ad</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="txtAd_Add">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="txtSoyad_Add" class="col-sm-2 col-form-label">Soyad</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="txtSoyad_Add">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="txtTelefon_Add" class="col-sm-2 col-form-label">Telefon</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="txtTelefon_Add">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="txtKullaniciAdi_Add" class="col-sm-2 col-form-label">Kullanıcı Adı</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="txtKullaniciAdi_Add">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="txtSifre_Add" class="col-sm-2 col-form-label">Şifre</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="txtSifre_Add">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="txtEPosta_Add" class="col-sm-2 col-form-label">E-Posta</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="txtEPosta_Add">
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-primary" id="btnAddCustomer">Kaydet</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<script>
+
+    $(function () {
+        $("#example1").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    });
+
+    $('.btnGetCustomerDetail').click(function () {
+        var guid = $(this).attr('data-guid')
+
+        $.ajax({
+            url: "/Admin/Musteri/" + guid,
+            type: "get",
+            success: function (response) {
+                $('#HCustomerFullName').html('').append(response.FirstName + " " + response.LastName)
+
+                $('#txtAd_Update').val(response.FirstName)
+
+                $('#txtSoyad_Update').val(response.LastName)
+
+                $('#txtTelefon_Update').val(response.PhoneNumber)
+
+                $('#txtEPosta_Update').val(response.Email)
+
+                $('#txtSifre_Update').val(response.Password)
+
+                $('#txtKullaniciAdi_Update').val(response.UserName)
+
+
+
+
+                $('#btnUpdateCustomer').attr('data-guid', guid)
+
+            },
+            Error: function (err) {
+                Swal.fire({
+                    title: "Hata Oluştu",
+                    text: err,
+                    icon: "error"
+                });
+            }
+        });
+    })
+
+    $('#btnUpdateCustomer').click(function () {
+        customerGUID = $(this).attr('data-guid');
+        var customerUpdateRequestDTO = {
+            "FirstName": $('#txtAd_Update').val(),
+            "LastName": $('#txtSoyad_Update').val(),
+            "Email": $('#txtTelefon_Update').val(),
+            "PhoneNumber": $('#txtEPosta_Update').val(),
+            "Password": $('#txtSifre_Update').val(),
+            "UserName": $('#txtKullaniciAdi_Update').val(),
+            "GUID": customerGUID
+        };
+
+        $.ajax({
+            url: "/Admin/UpdateCustomer",
+            type: "post",
+            data: { customerUpdateRequestDTO },
+            success: function (response) {
+                if (response.success) {
+
+
+                    Swal.fire({
+                        title: "İşlem Başarılı",
+                        html: "Müşteri Bilgileri  Başarıyla Güncellenmişir.Sayfa Tekrar Yükleniyor.",
+                        icon: "success",
+                        timer: 3000
+                    }).then((result) => {
+                        window.location.reload();
+                    });
+                }
+                else {
+                    Swal.fire({
+                        title: "HATA OLUŞTU",
+                        text: err,
+                        icon: "error"
+                    });
+                }
+            },
+            Error: function (err) {
+                Swal.fire({
+                    title: "HATA OLUŞTU",
+                    text: err,
+                    icon: "error"
+                });
+            }
+
+        });
+
+    });
+
+    $('#btnAddCustomer').click(function () {
+        var customerAddRequestDTO = {
+            "FirstName": $('#txtAd_Add').val(),
+            "LastName": $('#txtSoyad_Add').val(),
+            "Email": $('#txtEPosta_Add').val(),
+            "PhoneNumber": $('#txtTelefon_Add').val(),
+            "Password": $('#txtSifre_Add').val(),
+            "UserName": $('#txtKullaniciAdi_Add').val()
+        };
+
+        $.ajax({
+            url: "/Admin/AddCustomer",
+            type: "post",
+            data: { customerAddRequestDTO },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("XSRF-Token", $('input:hidden[name="__RequestVerificationToken]').val())
+            },
+            success: function (response) {
+                if (response.success) {
+
+
+                    Swal.fire({
+                        title: "İşlem Başarılı",
+                        html: "Müşteri Başarıyla Eklenmiştir.Sayfa Tekrar Yükleniyor.",
+                        icon: "success",
+                        timer: 3000
+                    }).then((result) => {
+                        window.location.reload();
+                    });
+                }
+                else {
+                    Swal.fire({
+                        title: "HATA OLUŞTU",
+                        text: response.hataAciklama,
+                        icon: "error"
+                    });
+                }
+            },
+            Error: function (err) {
+                Swal.fire({
+                    title: "HATA OLUŞTU",
+                    text: err,
+                    icon: "error"
+                });
+            }
+
+        });
+
+    });
+
+</script>
